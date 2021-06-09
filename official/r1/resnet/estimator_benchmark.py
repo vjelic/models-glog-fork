@@ -280,6 +280,106 @@ class Resnet50EstimatorBenchmark(Resnet50EstimatorBenchmarkBase):
     FLAGS.hooks = ['ExamplesPerSecondHook']
     self._run_and_report_benchmark()
 
+  def benchmark_graph_fp16_2_gpu(self):
+    """Benchmarks graph fp16 2 gpu."""
+    self._setup()
+
+    FLAGS.num_gpus = 2
+    FLAGS.model_dir = self._get_model_dir('benchmark_graph_fp16_2_gpu')
+    FLAGS.batch_size = 128*2
+    FLAGS.dtype = 'fp16'
+    FLAGS.hooks = ['ExamplesPerSecondHook']
+    self._run_and_report_benchmark()
+
+  def benchmark_graph_fp16_2_gpu_tweaked(self):
+    """Benchmarks graph fp16 2 gpu tweaked."""
+    self._setup()
+
+    FLAGS.num_gpus = 2
+    FLAGS.tf_gpu_thread_mode = 'gpu_private'
+    FLAGS.intra_op_parallelism_threads = 1
+    FLAGS.model_dir = self._get_model_dir('benchmark_graph_fp16_2_gpu_tweaked')
+    FLAGS.batch_size = 256*2
+    FLAGS.dtype = 'fp16'
+    FLAGS.hooks = ['ExamplesPerSecondHook']
+    self._run_and_report_benchmark()
+
+  def benchmark_graph_fp16_graph_rewrite_2_gpu_tweaked(self):
+    """Benchmarks graph fp16 graph rewrite 2 gpu tweaked."""
+    self._setup()
+
+    FLAGS.num_gpus = 2
+    FLAGS.tf_gpu_thread_mode = 'gpu_private'
+    FLAGS.intra_op_parallelism_threads = 1
+    FLAGS.model_dir = self._get_model_dir(
+        'benchmark_graph_fp16_graph_rewrite_2_gpu_tweaked')
+    FLAGS.batch_size = 256*2
+    FLAGS.dtype = 'fp16'
+    FLAGS.fp16_implementation = 'graph_rewrite'
+    FLAGS.hooks = ['ExamplesPerSecondHook']
+    self._run_and_report_benchmark()
+
+  def benchmark_graph_2_gpu(self):
+    """Benchmarks graph 2 gpu."""
+    self._setup()
+
+    FLAGS.num_gpus = 2
+    FLAGS.model_dir = self._get_model_dir('benchmark_graph_2_gpu')
+    FLAGS.batch_size = 64*2
+    FLAGS.dtype = 'fp32'
+    FLAGS.hooks = ['ExamplesPerSecondHook']
+    self._run_and_report_benchmark()
+
+  def benchmark_graph_fp16_4_gpu(self):
+    """Benchmarks graph fp16 4 gpu."""
+    self._setup()
+
+    FLAGS.num_gpus = 4
+    FLAGS.model_dir = self._get_model_dir('benchmark_graph_fp16_4_gpu')
+    FLAGS.batch_size = 128*4
+    FLAGS.dtype = 'fp16'
+    FLAGS.hooks = ['ExamplesPerSecondHook']
+    self._run_and_report_benchmark()
+
+  def benchmark_graph_fp16_4_gpu_tweaked(self):
+    """Benchmarks graph fp16 4 gpu tweaked."""
+    self._setup()
+
+    FLAGS.num_gpus = 4
+    FLAGS.tf_gpu_thread_mode = 'gpu_private'
+    FLAGS.intra_op_parallelism_threads = 1
+    FLAGS.model_dir = self._get_model_dir('benchmark_graph_fp16_4_gpu_tweaked')
+    FLAGS.batch_size = 256*4
+    FLAGS.dtype = 'fp16'
+    FLAGS.hooks = ['ExamplesPerSecondHook']
+    self._run_and_report_benchmark()
+
+  def benchmark_graph_fp16_graph_rewrite_4_gpu_tweaked(self):
+    """Benchmarks graph fp16 graph rewrite 4 gpu tweaked."""
+    self._setup()
+
+    FLAGS.num_gpus = 4
+    FLAGS.tf_gpu_thread_mode = 'gpu_private'
+    FLAGS.intra_op_parallelism_threads = 1
+    FLAGS.model_dir = self._get_model_dir(
+        'benchmark_graph_fp16_graph_rewrite_4_gpu_tweaked')
+    FLAGS.batch_size = 256*4
+    FLAGS.dtype = 'fp16'
+    FLAGS.fp16_implementation = 'graph_rewrite'
+    FLAGS.hooks = ['ExamplesPerSecondHook']
+    self._run_and_report_benchmark()
+
+  def benchmark_graph_4_gpu(self):
+    """Benchmarks graph 4 gpu."""
+    self._setup()
+
+    FLAGS.num_gpus = 4
+    FLAGS.model_dir = self._get_model_dir('benchmark_graph_4_gpu')
+    FLAGS.batch_size = 64*4
+    FLAGS.dtype = 'fp32'
+    FLAGS.hooks = ['ExamplesPerSecondHook']
+    self._run_and_report_benchmark()
+
   def benchmark_graph_8_gpu(self):
     """Benchmarks graph 8 gpus."""
     self._setup()
